@@ -1,18 +1,18 @@
 import java.util.Scanner;
 
 public class VoteDifference2{
-    private int vote_doctor_doom;
-    private int vote_iron_man;
+    private int vote_dd;
+    private int vote_im;
     private Scanner scanner;
 
-    public VoteDifference(){
+    public VoteDifference2(){
         vote_dd = 0;
         vote_im = 0;
         scanner = new Scanner(System.in);
     }
 
     private int get_votes(){
-        String votes = Scanner.nextLine
+        String votes = scanner.nextLine();
         String[] votes_indiv = votes.split(" ");
         try{
             vote_dd = Integer.parseInt(votes_indiv[0]);
@@ -37,7 +37,7 @@ public class VoteDifference2{
     }        
     
     public static void main(String[] args){
-        VoteDifference vote_difference = new VoteDifference();
+        VoteDifference2 vote_difference = new VoteDifference2();
                 if (vote_difference.get_votes() == -1)
                 {
                     System.out.println("Bad input");
