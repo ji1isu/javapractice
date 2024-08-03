@@ -1,5 +1,5 @@
 public class VolumeOfCylinder {
-    public static final double PI = 3.14159;
+    public static final double PI = 3.141592;
 
     public static void main(String[] args) {
         double radius = 0;
@@ -15,21 +15,18 @@ public class VolumeOfCylinder {
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Not enough arguments.");
             return;
-        } catch (NumberFormatException e) {
-            System.out.println("Input must be a valid number.");
-            return;
         }
 
         if (radius < 0) {
-            System.out.println("Radius cannot be negative");
+            System.out.println("Radius cannot be negative.");
             return;
         } else if (height < 0) {
-            System.out.println("Height cannot be negative");
+            System.out.println("Height cannot be negative.");
             return;
         }
 
         double volume = radius * radius * height * PI;
         String roundedVolume = String.format("%.2f", volume);
-        System.out.println("The volume of the cylinder is " + roundedVolume);
+        System.out.println("The volume of the cylinder is " + roundedVolume + ".");
     }
 }
