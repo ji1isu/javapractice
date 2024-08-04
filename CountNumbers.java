@@ -1,36 +1,67 @@
 import java.util.Arrays;
 
 public class CountNumbers {
+    private int m_start;
+    private int m_end;
+    private int m_direction;
+    private int[] m_output;
 
-    public static int[] strToIntArray(String[] arr){
-        int start;
-        int end;
-        //convert your args to an int array, then return it from the method.
-        String start_str = args[0]
-        String end_str = args[1]
-        
-        start = Integer.parseInt(start_str);
-        end = Integer.parseInt(end_str);
+    public static int[] strToIntArray(String[] args){
+        int[] number_arr = new int[args.length];
 
-        if (start-end > 0){
-            start = Integer.parseInt(end_str);
-            end = Integer.parseInt(start_str);
+        for(int i = 0; i < args.length; i ++){
+            number_arr[i] = Integer.parseInt(args[i]);
         }
 
-        int diff = start - end;
+        return number_arr;
+    }
 
-        int[] array = new int[diff+1];
+    private void argument_process(String[] args){
+        m_start = Integer.parseInt(args[0]);
+        m_end = Integer.parseInt(args[1]);
+        m_direction = 1;
 
-        for {i = 0; i < diff; i ++}{
-            array[i] = start + i;          
+        if (m_start > m_end){
+            m_direction = -1;
         }
-        return array;
+    }
+
+    private boolean output_set(){
+        int count = Math.abs(m_end - m_start) + 1;
+
+        m_output = new int[count];
+
+        for(int i = 0; i < count; i++){
+            m_output[i] = m_start + i * m_direction;
+        }
+
+        if(m_output.length < 3){
+            return false;
+        }
+        return true;
+    }
+
+    private void output_print(){
+        for (int i = 0; i < m_output.length; i++){
+            System.out.println(m_output[i]);
+        }
+    }
+
+    private void print(){
+        System.out.printf("m_start: %d\n", m_start);
+        System.out.printf("m_end: %d\n", m_end);
+        System.out.printf("m_direction: %d\n", m_direction);
     }
 
     public static void main(String[] args) {
-        int[] nums = strToIntArray(args);
-        if (nums.length > 0) {
-            System.out.println(Arrays.toString(nums));
+        CountNumbers count_numbers = new CountNumbers();
+        count_numbers.argument_process(args);
+        boolean valid = count_numbers.output_set();
+        if (valid){
+            count_numbers.output_print();
+        }
+        else{
+            System.out.println("Incorrect argument number");
+        }
     }
-}
 }

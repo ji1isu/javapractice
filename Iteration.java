@@ -5,11 +5,10 @@ public class Iteration{
         "three",
         "four"
     };
-    public static final int words_length = 4;
 
-    public void forLoopVCU(){
+    public static void forLoopVCU(){
         //for (variable; condition; update) here!
-        for(int i = 0; i < words_length; i ++){
+        for(int i = 0; i < words.length; i ++){
             System.out.println(words[i]);
         }
     }

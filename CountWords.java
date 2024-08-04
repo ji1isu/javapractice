@@ -4,7 +4,7 @@ public class CountWords{
         int vowel_count = 0;
         for(char c: s.toCharArray()){
             if(c == 'a' ||c == 'e' ||c == 'i' ||c == 'o' ||c == 'u'){
-                vowel_count ++;
+                vowel_count++;
             }
         }
         return vowel_count;
