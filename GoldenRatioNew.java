@@ -17,8 +17,16 @@ public class GoldenRatioNew{
             String[] string_arr = string_doubles.split(" ");
             a = Double.parseDouble(string_arr[0]);
             b = Double.parseDouble(string_arr[1]);
+            if (a-b > 0){
+                a = Double.parseDouble(string_arr[0]);
+                b = Double.parseDouble(string_arr[1]);
+            }else{
+                a = Double.parseDouble(string_arr[1]);
+                b = Double.parseDouble(string_arr[0]);                
+            }
         } catch (Exception e){
             System.out.println("Invalid input.");
+            return;
         }
     }    
 
