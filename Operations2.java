@@ -14,22 +14,21 @@ public class Operations2 {
         return true;
     }
 
-    private void addToListNum(int[] a) {
-        for (int num : a) {
-            if (notInArray(list_num, num)) {
-                list_num = addToArray(list_num, num);
-            }
-        }
-    }
-
-    private int[] addToArray(int[] array, int value) {
-        int[] newArray = new int[array.length + 1];
+    private int[] addToArray(int[] a, int value) {
+        int[] newArray = new int[a.length + 1];
         System.arraycopy(array, 0, newArray, 0, array.length);
         newArray[array.length] = value;
         return newArray;
     }
 
     static int countDuplicates(int[] a, int[] list_num) {
+        int[] list_num= new int[a.length];
+        for (int num : a) {
+            if (notInArray(list_num, num)) {
+                list_num = addToArray(list_num, num);
+            }
+        }     
+
         int count = 0;
         for (int num : list_num) {
             int num_count = 0;
