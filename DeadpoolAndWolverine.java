@@ -6,10 +6,12 @@ public class DeadpoolAndWolverine {
     String[] m_char_rev_ls;
     double m_target = 0.0; 
     boolean m_exit = false;
+    double[] m_revenue_list;
     TreeMap<String, Double> m_char_rev_map = new TreeMap<>();
 
     public DeadpoolAndWolverine(){
         m_char_rev_ls = new String[0];
+        m_revenue_list = new double[0];
         //tested, works
     }
 
@@ -20,6 +22,14 @@ public class DeadpoolAndWolverine {
         return tmp;
         //tested, works
     }
+
+    private double[] AddDoubleToArray(double[] array, double element){;
+        double[] tmp = new double[array.length + 1];
+        System.arraycopy(array, 0, tmp, 0, array.length);
+        tmp[array.length] = element;
+        return tmp;
+        //tested, works
+    }    
 
     private void update_m_exit(){
         m_exit = true;
@@ -41,6 +51,9 @@ public class DeadpoolAndWolverine {
             if(i % 2 != 0){
                 try{
                     double new_char = Double.parseDouble(str_array[i]);
+                    if(new_char < 0){
+                        return false;
+                    }
                 }
                 catch(NumberFormatException e){
                     System.out.println("error incorrect input.");
@@ -85,10 +98,28 @@ public class DeadpoolAndWolverine {
         }
     }//tested, works
     
+    private void revenue_add_all(){
+        for(int i = 1; i < m_char_rev_ls.length; i+=2){
+            double revenue = Double.parseDouble(m_char_rev_ls[i]);
+            m_revenue_list = AddDoubleToArray(m_revenue_list, revenue);
+            Arrays.sort(m_revenue_list);
+        }
+        //tested, works
+    }
+
+    private void select_by_revenue(){
+        double tally_revenue = 0.0;
+        String[] selected_characters = new String[0];
+        //need to: select by values
+
+    }
+
     public static void main(String[] args) {
         DeadpoolAndWolverine dw = new DeadpoolAndWolverine();
         dw.loop_for_input_until_EOF();
         System.out.println(Arrays.toString(dw.m_char_rev_ls));
+        dw.revenue_add_all();
+        System.out.println(Arrays.toString(dw.m_revenue_list));
         dw.add_all_to_map();
         System.out.println(dw.m_char_rev_map);
     }
