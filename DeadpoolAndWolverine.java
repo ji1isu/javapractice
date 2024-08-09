@@ -6,6 +6,7 @@ public class DeadpoolAndWolverine {
     String[] m_char_rev_ls;
     double m_target = 0.0; 
     boolean m_exit = false;
+    TreeMap<String, Double> m_char_rev_map = new TreeMap<>();
 
     public DeadpoolAndWolverine(){
         m_char_rev_ls = new String[0];
@@ -76,14 +77,20 @@ public class DeadpoolAndWolverine {
         }
     }// tested, works
 
-    
+    private void add_all_to_map(){
+        for(int i = 0; i < m_char_rev_ls.length; i+=2){
+            double revenue = Double.parseDouble(m_char_rev_ls[i+1]);
+            String name = m_char_rev_ls[i];
+            m_char_rev_map.put(name, revenue);
+        }
+    }//tested, works
     
     public static void main(String[] args) {
         DeadpoolAndWolverine dw = new DeadpoolAndWolverine();
-        System.out.println(Arrays.toString(dw.m_char_rev_ls));
         dw.loop_for_input_until_EOF();
         System.out.println(Arrays.toString(dw.m_char_rev_ls));
-
+        dw.add_all_to_map();
+        System.out.println(dw.m_char_rev_map);
     }
 
 }
