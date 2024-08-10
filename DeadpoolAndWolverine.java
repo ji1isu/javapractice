@@ -172,22 +172,20 @@ public class DeadpoolAndWolverine {
         }
         return "Total expected revenue: " + sum_revenue + " million dollars";
     }
-
-    //////////////////////////////////////////////////////////
-
+    
     private static double target_from_args(String[] args) throws Exception
     {
         double target;
 
         if (args.length != 1)
         {
-            throw new Exception("TODO: ERROR");
+            throw new Exception("Invalid target");
         }
 
         try{
             target = Double.parseDouble(args[0]);
         } catch(Exception e){
-            throw new Exception("TODO: ERROR2");
+            throw new Exception("Invalid target");
         }
 
         return target;
@@ -205,18 +203,9 @@ public class DeadpoolAndWolverine {
 
         DeadpoolAndWolverine dw = new DeadpoolAndWolverine(target);
         dw.input_process();
-        System.out.println(Arrays.toString(dw.m_char_rev_ls));
         dw.sorted_revenue();
-        System.out.println(Arrays.toString(dw.m_sorted_revenue_list));
         dw.sorted_name_revenue();
-        System.out.println(dw.m_char_rev_map);
-        int index = dw.find_minimum_revenue();
-        System.out.println(index);
-        String name = dw.find_name_by_revenue(2.0);
-        System.out.println(name);
-        dw.select_by_revenue();
-        System.out.println(Arrays.toString(dw.m_selected_chars));
-        System.out.println(dw.m_expected_revenue);
-
+        System.out.println(dw.select_by_revenue());
+        System.out.println(dw.calculate_expected_revenue());
     }
 }
