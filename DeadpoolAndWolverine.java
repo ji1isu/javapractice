@@ -113,6 +113,15 @@ public class DeadpoolAndWolverine {
         }
     }
 
+    private boolean is_in_array(String[] names, String name){
+        for(int i = 0; i < names.length ; i++){
+            if(names[i].equals(name)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     private String select_by_revenue(){
         int tally_revenue = 0;
         int index = find_minimum_revenue();
@@ -128,16 +137,17 @@ public class DeadpoolAndWolverine {
         return "Selected characters: " + Arrays.toString(m_selected_chars);
 
     }
-    //tested, works
 
-    private String find_name_by_revenue(int revenue) {
-        for (Map.Entry<String, Integer> entry : m_char_rev_map.entrySet()) {
-            if (entry.getValue().equals(revenue)) {
-                return entry.getKey(); 
+private String find_name_by_revenue(int revenue) {
+    for (Map.Entry<String, Integer> entry : m_char_rev_map.entrySet()) {
+        if (entry.getValue().equals(revenue)) {
+            if (!is_in_array(m_selected_chars, entry.getKey())) {
+                return entry.getKey();
             }
         }
-        return null; 
     }
+    return null;
+}
 
 
     private int find_minimum_revenue(){
