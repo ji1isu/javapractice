@@ -1,6 +1,7 @@
 import java.util.Scanner;
 import java.util.TreeMap;
 import java.util.Arrays;
+import java.util.Map;  
 
 public class DeadpoolAndWolverine {
     String[] m_char_rev_ls;
@@ -8,12 +9,14 @@ public class DeadpoolAndWolverine {
     boolean m_exit;
     double[] m_sorted_revenue_list;
     TreeMap<String, Double> m_char_rev_map;
+    String[] m_selected_chars;
 
     public DeadpoolAndWolverine(double target){
         m_target = target;
         m_char_rev_ls = new String[0];
         m_sorted_revenue_list = new double[0];
         m_char_rev_map = new TreeMap<>();
+        m_selected_chars = new String[0];
         //tested, works
     }
 
@@ -128,27 +131,39 @@ public class DeadpoolAndWolverine {
 
     private void select_by_revenue(){
         double tally_revenue = 0.0;
+        int index = find_minimum_revenue();
         String[] selected_characters = new String[0];
-        //need to: select by values
+        for(int i = 0; i < index+1; i++){
+            String name = find_name_by_revenue(m_sorted_revenue_list[i]);
+            m_selected_chars = AddToArray(m_selected_chars, name);
+        }
 
     }
+    //tested, works
 
-    private double find_minimum_revenue() throws Exception {
+    private String find_name_by_revenue(double revenue) {
+        for (Map.Entry<String, Double> entry : m_char_rev_map.entrySet()) {
+            if (entry.getValue().equals(revenue)) {
+                return entry.getKey(); 
+            }
+        }
+        return null; 
+    }//tested, works
+
+
+    private int find_minimum_revenue(){
         double sum_revenue = 0.0;
-        for (int i = 0; i < m_revenue_list.length; i++)
+        int index = 0;
+        for (int i = 0; i < m_sorted_revenue_list.length; i++)
         {
             sum_revenue += m_sorted_revenue_list[i];
-            if (sum_revenue > m_target)
-            {
-                if (i == 0)
-                {
-                    throw new Exception("TODO: ERROR");
-                }
-                return m_sorted_revenue_list[i-1];
+            if (sum_revenue > m_target){
+                return index;
             }
-        } // return an index
-        return m_sorted_revenue_list[m_revenue_list.length-1];
-    }
+            index = i;
+        }
+        return index;
+    }//tested, works
 
     //////////////////////////////////////////////////////////
 
@@ -187,5 +202,12 @@ public class DeadpoolAndWolverine {
         System.out.println(Arrays.toString(dw.m_sorted_revenue_list));
         dw.sorted_name_revenue();
         System.out.println(dw.m_char_rev_map);
+        int index = dw.find_minimum_revenue();
+        System.out.println(index);
+        String name = dw.find_name_by_revenue(2.0);
+        System.out.println(name);
+        dw.select_by_revenue();
+        System.out.println(Arrays.toString(dw.m_selected_chars));
+
     }
 }
