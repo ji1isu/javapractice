@@ -10,6 +10,7 @@ public class DeadpoolAndWolverine {
     double[] m_sorted_revenue_list;
     TreeMap<String, Double> m_char_rev_map;
     String[] m_selected_chars;
+    double m_expected_revenue;
 
     public DeadpoolAndWolverine(double target){
         m_target = target;
@@ -17,6 +18,7 @@ public class DeadpoolAndWolverine {
         m_sorted_revenue_list = new double[0];
         m_char_rev_map = new TreeMap<>();
         m_selected_chars = new String[0];
+        m_expected_revenue = 0;
         //tested, works
     }
 
@@ -70,12 +72,12 @@ public class DeadpoolAndWolverine {
 
     private boolean input_isvalid(String[] split_ls){
         if(split_ls.length % 2 != 0){
-            System.out.println("error incorrect input.");
+            System.out.println("Input "+ Arrays.toString(split_ls) +" is not valid. Make sure your input is valid.");
             return false;
         }
         for (int i = 1; i < split_ls.length; i+=2){
             if (is_valid_rev(split_ls[i]) != true) {
-                System.out.println("error incorrect input.");
+                System.out.println("Input "+ Arrays.toString(split_ls) +" is not valid. Make sure your input is valid.");
                 return false;
             }
         }
@@ -95,10 +97,6 @@ public class DeadpoolAndWolverine {
                 m_char_rev_ls = AddToArray(m_char_rev_ls, split_ls[i]);
             }
         }
-        else{
-            System.out.println("TEST: no output.");
-        }
-        //tested, works
         return true;
     }
 
@@ -129,7 +127,7 @@ public class DeadpoolAndWolverine {
         //tested, works
     }
 
-    private void select_by_revenue(){
+    private String select_by_revenue(){
         double tally_revenue = 0.0;
         int index = find_minimum_revenue();
         String[] selected_characters = new String[0];
@@ -137,6 +135,7 @@ public class DeadpoolAndWolverine {
             String name = find_name_by_revenue(m_sorted_revenue_list[i]);
             m_selected_chars = AddToArray(m_selected_chars, name);
         }
+        return "Selected characters: " + Arrays.toString(m_selected_chars);
 
     }
     //tested, works
@@ -162,8 +161,17 @@ public class DeadpoolAndWolverine {
             }
             index = i;
         }
-        return index;
+        return m_sorted_revenue_list.length - 1;
     }//tested, works
+
+    private String calculate_expected_revenue(){
+        int index = find_minimum_revenue();
+        double sum_revenue = 0;
+        for (int i = 0; i < index + 1; i++){
+            sum_revenue += m_sorted_revenue_list[i];
+        }
+        return "Total expected revenue: " + sum_revenue + " million dollars";
+    }
 
     //////////////////////////////////////////////////////////
 
@@ -208,6 +216,7 @@ public class DeadpoolAndWolverine {
         System.out.println(name);
         dw.select_by_revenue();
         System.out.println(Arrays.toString(dw.m_selected_chars));
+        System.out.println(dw.m_expected_revenue);
 
     }
 }
