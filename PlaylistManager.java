@@ -9,16 +9,18 @@ public class PlaylistManager {
 
     private String[] playlist;
     private String song;
+    private boolean run;
 
     public PlaylistManager(){
         playlist = new String[0];
+        run = true;
     }
 
-    private String get_Command(){
-        Scanner comm = new Scanner(System.in);
-        String comm_ = comm.nextLine();
+    private String input_getter(){
+        Scanner scanner = new Scanner(System.in);
         System.out.print("> ");
-        return comm_;
+        String string = scanner.nextLine();
+        return string;
     }
     
     private void viewPlaylist(){
@@ -71,8 +73,27 @@ public class PlaylistManager {
 
     public static void main(String[] args) {
         PlaylistManager pm = new PlaylistManager();
-        pm.viewPlaylist();
-        pm.addSong("zoo wee mama");
-        pm.viewPlaylist();
+        while(pm.run){
+            String command = pm.input_getter();
+            if(command.equals("view")){
+                pm.viewPlaylist();
+            }
+            else if(command.equals("add")){
+                String song = pm.input_getter();
+                pm.addSong(song);
+            }
+            else if(command.equals("remove")){
+                String song = pm.input_getter();
+                pm.removeSong(song);
+            }
+            else if(command.equals("EOF")){
+                return;
+            }
+            else{
+                System.out.println("Invalid command. Try again.");
+            }
+        }
+
     }
-    }
+
+}
