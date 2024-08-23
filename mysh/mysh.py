@@ -1,37 +1,46 @@
 import os
 import json
+import subprocess
 
+from builtin import Builtin
 
-CMD_ALL = {
-    "exit": builtin_exit,
-    "eg": builtin_example
-}
-
-# make file reader . you need this to access prompt and intialise shell
 def read_json_file(file_path):
-    with open(file_path, 'r', encoding = 'utf-8') as f:
+    with open(file_path, 'r', encoding='utf-8') as f:
         data = json.load(f)
         return data
-        #json.load()? will transer file data to the shell
 
-def builtin_exit():
-    exit(0)
+class MySh:
+    def __init__(self, config_path):
+        self.config = read_json_file(config_path)
+        self._prompt_set()
 
-def builtin_example():
-    print("this is an example built in")
+    def _prompt_set(self):
+        self.prompt = os.getenv('PROMPT')
+        if self.prompt is None:
+            self.prompt = self.config["default_prompt"]
 
+    def _get_cmd(self):
+        return input(self.prompt)
 
+if __name__ == "__main__":
+    mysh = MySh(".myshrc")
+    builtin = Builtin()
+    while True:
+        try:
+            cmd = mysh._get_cmd()
+        except EOFError:
+            print(" ") #ctrl z, not d
+            exit(0)
+        except FileNotFoundError:
+            print(f"mysh: command not found <{cmd}>")
 
-#have a command table that you can add commands to(build in)
+        result = builtin.exec(cmd)
+        if result == None:
+            result = subprocess.run(cmd, capture_output=True, text=True)
 
-#
-# make mySh class that:
-# executes functions using os.system(cmd)
-#adds to table
-#
+        print(result.stdout)
 
-# main looping /main 
-#get commands
-#if mysh is a built in command
-# execute and cintinue
-# itherwise mys.cmd_exec if in os
+        #other errors:
+        # no file/directory
+        #is directory
+        #permission denied
