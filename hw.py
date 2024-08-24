@@ -23,15 +23,25 @@ def print_all(all_names):
 
 def from_file(_file):
     names = read_file_to_list(_file)
-    sort_by_order(names)
-    print_all(names)
+    sorted_names = sort_by_order(names) 
+    print_all(sorted_names)
+
+def input_to_file():
+    
 
 def main(args: list[str]) -> None:
-    if len(sys.argv[1:]) == 1:
-        _file = sys.argv[1]
-        from_file(_file)
-    elif len(sys.argv[1:]) > 1:
-        print("Error: accepts only 1 optional argument")
+    try:
+        if len(sys.argv[1:]) == 1:
+            _file = sys.argv[1]
+            from_file(_file)
+        elif len(sys.argv[1:]) > 1:
+            print("Error: accepts only 1 optional argument")
+        elif len(sys.argv[1:]) == 0:
+            _file = input_to_file()
+            from_file(_file)
+
+    except FileNotFoundError:
+        print("Error: 'test-file.txt' cannot be found")
 
 
 if __name__ == "__main__":
