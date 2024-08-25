@@ -38,6 +38,7 @@ def main(args: list[str]) -> None:
         inputs_ls = read_from_input()
     elif len(args) == 1:
         inputs_ls = read_from_file()
+    sort_stdin(inputs_ls)
 
 if __name__ == "__main__":
     main(sys.argv[1:])
