@@ -4,26 +4,19 @@ import java.util.HashMap;
 
 public class Whalesong {
     HashMap<String, String> whalesToSong;
-    String whaleAction;
+    ArrayList<String> whaleAction;
     String whaleName;
     Scanner scan; 
 
     public Whalesong(){
         whalesToSong = new HashMap<>();
-        whaleAction = null;
+        whaleAction = new ArrayList<>()
         whaleName = null;
         scan = new Scanner(System.in);
     }
     
-    private boolean whaleHasSong(String whale, String song) {
-        String whaleSong = whalesToSong.get(whale);
-
-        return whaleSong != null && whaleSong.equals(song);
-    }
-
     private void commandParser(){
         String commStr = scan.nextLine();
-
         String[] comms = commStr.split("\\s+");
         whaleAction = comms[0];
         whaleName = comms[1];
@@ -258,57 +251,65 @@ public class Whalesong {
     private void exit(){
         exit();
     }
+    
+    private void executeComm(String comm){
+        if (comm.equals("add")){
+                ws.add();
+            }
+            else if (comm.equals("play")){
+                ws.play();
+            }
+            else if (comm.equals("hear")){
+                ws.hear();
+            }
+            else if (comm.equals("augment")){
+                ws.augment();
+            }
+            else if (comm.equals("clarify")){
+                ws.clarify();
+            }
+            else if (comm.equals("normalise")){
+                ws.normalise();
+            }
+            else if (comm.equals("reverse")){
+                ws.reverse();
+            }
+            else if (comm.equals("mirror")){
+                ws.mirror();
+            }
+            else if (comm.equals("uppercase")){
+                ws.uppercase();
+            }
+            else if (comm.equals("pattern")){
+                ws.pattern();
+            }
+            else if (comm.equals("echo")){
+                ws.echo();
+            }
+            else if (comm.equals("compress")){
+                ws.compress();
+            }
+            else if (comm.equals("expand")){
+                ws.expand();
+            }
+            else if (comm.equals("invert")){
+                ws.invert();
+            }
+            else if (comm.equals("exit")){
+                ws.exit();
+            }
+    }
 
     public static void main(String[] args) {
 
         Whalesong ws = new Whalesong();
         while(true){
             ws.commandParser();
-            if (ws.whaleAction.equals("add")){
-                ws.add();
+            for(int i; i < whaleAction.length(); i++){
+                String comm = whaleAction[i];
+                ws.executeComm(comm);
             }
-            else if (ws.whaleAction.equals("play")){
-                ws.play();
-            }
-            else if (ws.whaleAction.equals("hear")){
-                ws.hear();
-            }
-            else if (ws.whaleAction.equals("augment")){
-                ws.augment();
-            }
-            else if (ws.whaleAction.equals("clarify")){
-                ws.clarify();
-            }
-            else if (ws.whaleAction.equals("normalise")){
-                ws.normalise();
-            }
-            else if (ws.whaleAction.equals("reverse")){
-                ws.reverse();
-            }
-            else if (ws.whaleAction.equals("mirror")){
-                ws.mirror();
-            }
-            else if (ws.whaleAction.equals("uppercase")){
-                ws.uppercase();
-            }
-            else if (ws.whaleAction.equals("pattern")){
-                ws.pattern();
-            }
-            else if (ws.whaleAction.equals("echo")){
-                ws.echo();
-            }
-            else if (ws.whaleAction.equals("compress")){
-                ws.compress();
-            }
-            else if (ws.whaleAction.equals("expand")){
-                ws.expand();
-            }
-            else if (ws.whaleAction.equals("invert")){
-                ws.invert();
-            }
-            else if (ws.whaleAction.equals("exit")){
-                ws.exit();
-            }
+            
         }
 
     }
