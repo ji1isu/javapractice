@@ -19,16 +19,20 @@ public class Skibidi{
     ArrayList<Integer> allianceScoreKeeper;
     int skibidiScore;
     int allianceScore;
+    boolean skibidiTrapped;
+    boolean allianceTrapped;
 
     public Skibidi(){
         //constructors
         allianceMap = new HashMap<>();
         skibidiMap = new HashMap<>();
-        abilityList = new String[]{"PowerSurge", "BopShield", "ZapTrap", "EnergyBoost", "TitanBoost"};
+        abilityList = new String[]{"PowerSurge", "BopShield", "EnergyBoost", "TitanBoost"};
         skibidiScoreKeeper = new ArrayList<>();
         allianceScoreKeeper = new ArrayList<>(); 
         skibidiScore = 0;
         allianceScore = 0;
+        skibidiTrapped = false;
+        allianceTrapped = false;
     }
 
     private String[] parseString(String toParse){
@@ -102,15 +106,15 @@ public class Skibidi{
             case "BopShield":
                 BopShield(map, scoreKeeper);
                 break;
-            case "ZapTrap":
-                ZapTrap(map, scoreKeeper);
-                break;
             case "EnergyBoost":
                 EnergyBoost(map, scoreKeeper);
                 break;
             case "Titanboost":
                 TitanBoost(map, scoreKeeper);
                 break;
+            case "ZapTrap":
+                // if scoreKeeper is skibidiScoreKeeper skibiditrapped is true
+                // if scorekeeper alliancescorekeeper alliancetrapped is true
             default:
                 System.out.println("Warning: Unknown ability '<ability>' detected in '<filename>'. Ignored.");
             }
@@ -143,10 +147,7 @@ public class Skibidi{
 
     private void ZapTrap(HashMap<String, Integer> map, int Score){
         int minusBy = map.get("ZapTrap");
-        //if Score name is skibidiScore, minus from allianceScore
-        //allianceScore -= minusBy
-        //if Score name is allianceScore, minus from skibidiScore
-        //skibidiScore -= minusBy
+        Score -= minusBy;
 
     } 
 
@@ -160,9 +161,15 @@ public class Skibidi{
     private void calculateWinner(){
         for (Integer num : skibidiScoreKeeper) {
             skibidiScore += num;
+            if(skibidiTrapped){
+                ZapTrap(skibidiMap, skibidiScore);
+            }
         }
         for (Integer num : allianceScoreKeeper) {
             allianceScore += num;
+            if(allianceTrapped){
+                ZapTrap(allianceMap, allianceScore);
+            }
         }
         if(skibidiScore > allianceScore){
             System.out.println("Battle result: Skibidi wins");
