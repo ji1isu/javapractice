@@ -17,6 +17,9 @@ class BuiltinEg:
     def exec(self):
         return BuiltinResult("This is example", "")
 
+class BuiltinVar:
+    def __init__(self, input_handler)
+
 #class for all builtin command
 
 class Builtin:
@@ -24,6 +27,7 @@ class Builtin:
         self.cmd_table = {
             "exit": BuiltinExit,
             "eg": BuiltinEg,
+            "var": BuiltinVar,
         }
 
     def exec(self, cmd):

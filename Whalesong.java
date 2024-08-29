@@ -10,7 +10,7 @@ public class Whalesong {
 
     public Whalesong(){
         whalesToSong = new HashMap<>();
-        whaleAction = new ArrayList<>()
+        whaleAction = new ArrayList<>();
         whaleName = null;
         scan = new Scanner(System.in);
     }

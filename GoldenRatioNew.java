@@ -59,11 +59,11 @@ public class GoldenRatioNew{
         is_golden_ratio = gr.is_golden_ratio(gr_1, gr_2);
 
         if (is_golden_ratio){
-            System.out.println("")
+            System.out.println("");
             System.out.println("Golden ratio!");
             return;
         }
-        System.out.println("")
+        System.out.println("");
         System.out.println("Maybe next time.");
     }
 }
