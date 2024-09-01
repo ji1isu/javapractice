@@ -1,10 +1,7 @@
 public class Skibidi {
     public static void main(String[] args) {
-        Team skibidi = new Team();
-        Team alliance = new Team();
-
-        skibidi.fileName = args[1];
-        alliance.fileName = args[0];
+        Team skibidi = new Team(args[1]);
+        Team alliance = new Team(args[0]);
 
         skibidi.executeAll();
         double skbdScore = skibidi.score_get();

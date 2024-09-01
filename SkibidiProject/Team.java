@@ -12,10 +12,11 @@ public class Team {
     private boolean isTrapping;
     private ArrayList<Double> characterScores;
     private HashMap<String, Double> ability;
-    public String fileName;
+    private String fileName;
     private boolean mode;
 
-    public Team(){
+    public Team(String cability_file_path){
+        fileName = cability_file_path;
         isTrapping = false;
         characterScores = new ArrayList<Double>();
         ability = new HashMap<String, Double>();
