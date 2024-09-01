@@ -13,14 +13,14 @@ public class Team {
     private ArrayList<Double> characterScores;
     private HashMap<String, Double> ability;
     private String fileName;
-    private boolean mode;
+    private boolean isCharAllListed;
 
     public Team(String cability_file_path){
         this.fileName = cability_file_path;
         isTrapping = false;
         characterScores = new ArrayList<Double>();
         ability = new HashMap<String, Double>();
-        mode = false;
+        this.isCharAllListed = false;
     }
 
     private boolean isAbility(String word)
@@ -153,12 +153,12 @@ public class Team {
 
     private void checkAbility(String name, Double score){
         if (isAbility(name)){
-            mode = true;
+            this.isCharAllListed = true;
             ability.put(name, score);
         }
         else
         {
-            if(mode==true)
+            if(this.isCharAllListed==true)
             {
                 System.out.println("Warning: Unknown ability " + name + " detected in " + this.fileName + ". Ignored.");
             }
