@@ -16,7 +16,7 @@ public class Team {
     private boolean mode;
 
     public Team(String cability_file_path){
-        fileName = cability_file_path;
+        this.fileName = cability_file_path;
         isTrapping = false;
         characterScores = new ArrayList<Double>();
         ability = new HashMap<String, Double>();
@@ -51,7 +51,7 @@ public class Team {
                 isTrapping = true;
                 break;
             default:
-                System.out.println("Warning: Unknown ability " + abilityName + " detected in " + fileName +". Ignored.");
+                System.out.println("Warning: Unknown ability " + abilityName + " detected in " + this.fileName +". Ignored.");
             }
     }
 
@@ -95,16 +95,14 @@ public class Team {
         value = characterScores.set(characterScores.size() - 1, value);
     }
 
-
-
-    private void readFile(String fileName){
-        File file = new File(fileName);
+    private void readFile(){
+        File file = new File(this.fileName);
         if (!file.exists()) {
-            System.out.println("Error: File '" + fileName + "' not found. Please check the path and try again.");
+            System.out.println("Error: File '" + this.fileName + "' not found. Please check the path and try again.");
             System.exit(0);
         }
         if (file.length() == 0) {
-            System.out.println("Error: No valid data found in '" + fileName + "'. Battle cannot proceed.");
+            System.out.println("Error: No valid data found in '" + this.fileName + "'. Battle cannot proceed.");
             System.exit(0);
         }
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
@@ -117,7 +115,7 @@ public class Team {
                 }
             }
         } catch (FileNotFoundException e) {
-            System.out.println("Error: File '" + fileName + "' not found. Please check the path and try again.");
+            System.out.println("Error: File '" + this.fileName + "' not found. Please check the path and try again.");
             System.exit(0);
         } catch (IOException e) {
             System.out.println("An I/O error occurred while reading the file.");
@@ -162,7 +160,7 @@ public class Team {
         {
             if(mode==true)
             {
-                System.out.println("Warning: Unknown ability " + name + " detected in " + fileName + ". Ignored.");
+                System.out.println("Warning: Unknown ability " + name + " detected in " + this.fileName + ". Ignored.");
             }
             else{
                 appendScore(name, score);
@@ -171,7 +169,7 @@ public class Team {
     }
 
     public void executeAll(){
-        readFile(fileName);
+        readFile();
         for(String anAbility : ability.keySet()){
             apply_ability(anAbility);
         }
