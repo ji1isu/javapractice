@@ -83,8 +83,9 @@ public class Team {
     }
 
     private double ZapTrap(double Score){
-        double plusBy = ability.get("ZapTrap");
-        Score += plusBy;
+        double multiplyBy = ability.get("ZapTrap");
+        double multiplyByPercentage = (multiplyBy * 0.01) + 1;
+        Score = Score * multiplyByPercentage;
         return Score;
     } 
 
@@ -95,6 +96,35 @@ public class Team {
         value = characterScores.set(characterScores.size() - 1, value);
     }
 
+    private void testFile(){
+        File file = new File(this.fileName);
+        if (!file.exists()) {
+            System.out.println("Error: File '" + this.fileName + "' not found. Please check the path and try again.");
+            System.exit(0);
+        }
+        if (file.length() == 0) {
+            System.out.println("Error: No valid data found in '" + this.fileName + "'. Battle cannot proceed.");
+            System.exit(0);
+        }
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                boolean readSuccess = isValidLine(line);
+                if (readSuccess){
+                    return;
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Error: File '" + this.fileName + "' not found. Please check the path and try again.");
+            System.exit(0);
+        } catch (IOException e) {
+            System.out.println("An I/O error occurred while reading the file.");
+            System.exit(0);
+        }
+        System.out.println("Error: No valid data found in '" + this.fileName + "'. Battle cannot proceed.");
+        System.exit(0);
+    }
+    
     private void readFile(){
         File file = new File(this.fileName);
         if (!file.exists()) {
@@ -134,6 +164,21 @@ public class Team {
         }
     }
 
+    private boolean isValidLine(String line){
+        String[] lineParsed = parseString(line);
+        if (lineParsed.length == 2) 
+        {
+            Double value;
+            try {
+                value = Double.parseDouble(lineParsed[1]);
+                return true;
+            } catch (NumberFormatException e) {
+                return false;
+            }
+        }
+        return false;
+    }
+
     private boolean sortReadLines(String line){
         String[] lineParsed = parseString(line);
         if (lineParsed.length >= 2) {
@@ -160,7 +205,7 @@ public class Team {
         {
             if(this.isCharAllListed==true)
             {
-                System.out.println("Warning: Unknown ability " + name + " detected in " + this.fileName + ". Ignored.");
+                System.out.println("Warning: Unknown ability '" + name + "' detected in '" + this.fileName + "'. Ignored.");
             }
             else{
                 appendScore(name, score);
@@ -169,6 +214,7 @@ public class Team {
     }
 
     public void executeAll(){
+        testFile();
         readFile();
         for(String anAbility : ability.keySet()){
             apply_ability(anAbility);
