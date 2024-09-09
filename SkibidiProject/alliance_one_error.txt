@@ -3,4 +3,4 @@ Speakerman 130
 TV-Head 140
 PowerSurge 50
 BopShield 20
-EnergyBoost 30
+EnergyBoost 30a

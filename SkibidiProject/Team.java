@@ -34,6 +34,11 @@ public class Team {
 
     private void apply_ability(String abilityName)
     {
+        if (characterScores.size() == 0)
+        {
+            return;
+        }
+
         switch (abilityName) {
             case "PowerSurge":
                 PowerSurge();
@@ -108,7 +113,19 @@ public class Team {
         }
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
+            boolean character_check = false;
             while ((line = br.readLine()) != null) {
+                if (character_check)
+                {
+                    String[] split_line = parseString(line);
+                    if (isAbility(split_line[0]))
+                    {
+                        System.out.println("Error: No valid data found in '" + this.fileName + "'. Battle cannot proceed.");
+                        System.exit(0);
+                    }
+                    character_check = false;
+                }
+
                 boolean readSuccess = isValidLine(line);
                 if (readSuccess){
                     return;
@@ -178,7 +195,7 @@ public class Team {
         }
         return false;
     }
-
+    
     private boolean sortReadLines(String line){
         String[] lineParsed = parseString(line);
         if (lineParsed.length >= 2) {
@@ -223,6 +240,13 @@ public class Team {
    
     public double score_get()
     {
+        if (characterScores.size() == 0)
+        {   
+            System.out.println("Error: No valid data found in '" + this.fileName + "'. Battle cannot proceed.");
+            System.exit(0);
+            // return 0.0;
+        }
+
         double final_score = 0;
         for (double num : characterScores) {
             final_score += num;
@@ -232,5 +256,4 @@ public class Team {
         }
         return final_score;
     }
-
 }

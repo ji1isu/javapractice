@@ -1,0 +1,2 @@
+EnergyBoost 30
+unknownAbil 30
